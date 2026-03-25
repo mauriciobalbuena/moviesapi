@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -51,5 +52,18 @@ class MoviesController {
             return ResponseEntity.badRequest().build();
         }
         return ResponseEntity.status(HttpStatus.CREATED).body(savedMovie);
+    }
+
+    @PutMapping("/{id}")
+    ResponseEntity<MovieVO> update(@PathVariable Long id, @RequestBody MovieVO movieVO) {
+        Optional<MovieVO> updatedMovie = moviesService.update(id, movieVO);
+        if (!updatedMovie.isPresent()) {
+            return ResponseEntity.notFound().build();
+        } else if (updatedMovie.get() == null) {
+            return ResponseEntity.badRequest().build();
+        } else {
+            return ResponseEntity.ok(updatedMovie.get());
+        }
+
     }
 }

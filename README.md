@@ -143,3 +143,36 @@ Example POST payload:
 ## Configuration Notes
 - The database connection depends on external values from `env.properties` (imported by `application.properties`).
 - The `target/` folder contains build artifacts and must not be versioned.
+
+Additional Endpoints
+
+The API supports updating and deleting movies.
+
+Update Movie
+
+Endpoint: PUT /movies/{id}
+
+Updates an existing movie by providing its ID and a JSON body with the new data.
+
+Responses:
+
+200 OK: Movie updated successfully (returns updated object)
+400 Bad Request: Invalid request body
+404 Not Found: Movie does not exist
+
+Example:
+Request to PUT /movies/1 with fields like name, launchDate, duration, rating, and description returns the updated movie with new values.
+
+Delete Movie
+
+Endpoint: DELETE /movies/{id}
+
+Deletes a movie by its ID.
+
+Responses:
+
+204 No Content: Movie deleted successfully
+404 Not Found: Movie does not exist
+
+Example:
+Request to DELETE /movies/1 removes the movie if it exists.
